@@ -14,12 +14,22 @@
     "supertest",
     "jest"
   ],
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "expect"
+    ]
+  },
   "author": "Ben Surgison",
   "license": "MIT",
   "dependencies": {
     "deepmerge": "^4.2.2",
+    "dotenv": "^8.2.0",
+    "faker": "^5.1.0",
     "jest": "^26.4.2",
     "standard": "^14.3.4",
     "supertest": "^4.0.2"
-  }
+  },
+  "devDependencies": {}
 }
