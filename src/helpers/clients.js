@@ -26,6 +26,42 @@ module.exports = {
       throw err
     }
 
+    return res.body
+  },
+
+  async updateClient (args = {}) {
+    const { apiUrl, id } = { ...config, ...args }
+
+    const res = await request(apiUrl)
+      .patch(`/clients/${id}`)
+      .send({ ...args })
+
+    try {
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toHaveProperty('id')
+    } catch (err) {
+      console.log(res.text)
+      throw err
+    }
+
+    return res.body.id
+  },
+
+  async replaceClient (args = {}) {
+    const { apiUrl, id } = { ...config, ...args }
+
+    const res = await request(apiUrl)
+      .put(`/clients/${id}`)
+      .send({ ...args })
+
+    try {
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toHaveProperty('id')
+    } catch (err) {
+      console.log(res.text)
+      throw err
+    }
+
     return res.body.id
   },
 
