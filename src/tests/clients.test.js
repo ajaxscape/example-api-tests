@@ -32,11 +32,8 @@ describe('Sample Test', () => {
   it('should create, retrieve and delete a client', async () => {
     const { id } = await createClient({})
     await deleteClient({ id })
-    try {
-      const client = await getClient({ id })
-      expect(client).toEqual(undefined)
-    } catch (err) {
-      console.log(err)
-    }
+    const client = await getClient({ id })
+
+    expect(client).toEqual(undefined)
   })
 })
