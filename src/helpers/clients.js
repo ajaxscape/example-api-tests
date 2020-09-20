@@ -6,7 +6,7 @@ const faker = require('faker')
 const config = require('../config')
 
 module.exports = {
-  async createClient (args = {}) {
+  async createClient (args = {}, expectedCode = 201) {
     const { apiUrl } = { ...config, ...args }
 
     const body = merge({
@@ -19,46 +19,56 @@ module.exports = {
       .post('/clients')
       .send(body)
 
+    expect(res.statusCode).toEqual(expectedCode)
+
     return res.body
   },
 
-  async updateClient (args = {}) {
+  async updateClient (args = {}, expectedCode = 200) {
     const { apiUrl, id } = { ...config, ...args }
 
     const res = await request(apiUrl)
       .patch(`/clients/${id}`)
       .send({ ...args })
 
-    return res.body.id
+    expect(res.statusCode).toEqual(expectedCode)
+
+    return res.body
   },
 
-  async replaceClient (args = {}) {
+  async replaceClient (args = {}, expectedCode = 200) {
     const { apiUrl, id } = { ...config, ...args }
 
     const res = await request(apiUrl)
       .put(`/clients/${id}`)
       .send({ ...args })
 
-    return res.body.id
+    expect(res.statusCode).toEqual(expectedCode)
+
+    return res.body
   },
 
-  async deleteClient (args = {}) {
+  async deleteClient (args = {}, expectedCode = 200) {
     const { apiUrl, id } = { ...config, ...args }
 
     const res = await request(apiUrl)
       .delete(`/clients/${id}`)
       .send({ ...args })
 
-    return res.body.id
+    expect(res.statusCode).toEqual(expectedCode)
+
+    return res.body
   },
 
-  async getClient (args = {}) {
+  async getClient (args = {}, expectedCode = 200) {
     const { apiUrl, id } = { ...config, ...args }
 
     const path = `/clients/${id}`
 
     const res = await request(apiUrl)
       .get(path)
+
+    expect(res.statusCode).toEqual(expectedCode)
 
     return res.statusCode === 200 ? res.body : undefined
   }
