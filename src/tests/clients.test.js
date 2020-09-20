@@ -1,6 +1,6 @@
 'use strict'
 
-const { createClient, getClient, updateClient, replaceClient } = require('../helpers/clients')
+const { createClient, getClient, updateClient, replaceClient, deleteClient } = require('../helpers/clients')
 
 describe('Sample Test', () => {
   it('should create and retrieve a client', async () => {
@@ -27,5 +27,16 @@ describe('Sample Test', () => {
     const client = await getClient({ id })
 
     expect(client).toEqual(data)
+  })
+
+  it('should create, retrieve and delete a client', async () => {
+    const { id } = await createClient({})
+    await deleteClient({ id })
+    try {
+      const client = await getClient({ id })
+      expect(client).toEqual(undefined)
+    } catch (err) {
+      console.log(err)
+    }
   })
 })

@@ -65,6 +65,24 @@ module.exports = {
     return res.body.id
   },
 
+  async deleteClient (args = {}) {
+    const { apiUrl, id } = { ...config, ...args }
+
+    const res = await request(apiUrl)
+      .delete(`/clients/${id}`)
+      .send({ ...args })
+
+    try {
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toHaveProperty('id')
+    } catch (err) {
+      console.log(res.text)
+      throw err
+    }
+
+    return res.body.id
+  },
+
   async getClient (args = {}) {
     const { apiUrl, id } = { ...config, ...args }
 
